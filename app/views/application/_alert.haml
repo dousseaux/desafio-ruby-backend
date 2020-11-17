@@ -1,0 +1,27 @@
+- bold_present = false
+- raw_present = false
+
+- begin
+    - bold_present = !bold.blank?
+- rescue
+- begin
+    - raw_present = !raw.blank?
+- rescue
+
+- if bold_present || raw_present || yield.present?
+    - unless defined? margin
+        - margin = ''
+    - unless defined? classes
+        - classes = ''
+    - unless defined? type
+        - type = 'dark'
+    .alert.alert-dismissible.d-flex.align-items-center.justify-content-between.px-3.fade.show(role="alert" class="alert-#{type} #{margin} #{classes}")
+        .alert-body
+            - if bold_present
+                %strong= bold
+            - if raw_present
+                = raw.html_safe
+            - unless raw_present || bold_present
+                = yield
+        .alert-close.ml-3.cursor-pointer(data-dismiss="alert")
+            &times;

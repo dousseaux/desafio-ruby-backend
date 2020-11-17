@@ -1,0 +1,38 @@
+%ul.nav.nav-transparent
+
+    // ################### USER
+    - nav_item_class = 'nav-item'
+    - if request.path.include?('/profile')
+        - nav_item_class = nav_item_class + ' active'
+    %li(class="#{nav_item_class}")
+        = link_to user_profile_path, class: 'nav-link' do
+            %i.fa.fa-user-circle-o
+            - if @user.blank?
+                = @user.nickname
+            - else
+                Sign In
+
+    .sidebar-spacer
+
+    // ################### HOME
+    - nav_item_class = 'nav-item'
+    - if current_page?(root_path) || true
+        - nav_item_class = nav_item_class + ' active'
+    %li(class="#{nav_item_class}")
+        = link_to root_path , class: 'nav-link' do
+            %i.fa.fa-home
+            Home
+
+    .sidebar-spacer
+
+    // ################### SIGN OUT
+    %li.nav-item
+        = link_to "#", class: 'nav-link', onclick: 'event.preventDefault(); cognito.signout();' do
+            %i.fa.fa-sign-out
+            Sign Out
+
+    // ################### COPYRIGHT
+    %li.nav-item
+        = link_to 'https://duxcloud.com.br', class: 'nav-link fs-10', target: '_blank' do
+            %span.font-weight-light Pedro Dousseau -
+            %span.font-weight-light v0.1.0 Beta

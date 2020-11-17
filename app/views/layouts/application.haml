@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+%html(lang="en")
+    %head
+        %meta{:charset => "utf-8"}
+        %title= @config[:title].truncate(70)
+        %meta{:name => "description", :content => @config[:description].truncate(300)}
+        %meta{:name => "viewport", :content => "width=device-width, height=device-height, viewport-fit=cover, initial-scale=1.0, shrink-to-fit=no"}
+        %meta{:name => "author", :content => "Pedro Dousseau <pedro@dousseau.com"}
+        %meta{name: "robots", content: "noindex"}
+
+        - favicon_path = asset_path(@config[:favicon].to_s)
+        %link{:rel => "shortcut icon", :type => "image/x-icon", :href => favicon_path}
+        %link{:rel => "icon", :type => "image/png", :href => favicon_path}
+
+        = csrf_meta_tags
+
+        -############ STYLESHEETS
+        = stylesheet_link_tag 'application', media: 'all', type: 'text/css'
+
+    %body.bg-gradient-gray-100.dashboard-body(id="body")
+
+        -############ SIDEBAR
+        %div.sidebar-mobile
+            .sidebar-toggle
+            = image_tag @config[:logo_mobile]
+        %nav
+            .sidebar-close
+            .sidebar-content
+                = link_to root_path, class: 'sidebar-logo' do
+                    = image_tag @config[:logo]
+                = render 'sidebar_nav'
+
+        -############ MAIN CONTENT
+        %main.dashboard-content
+
+            .dashboard-window
+
+            -############ JAVASCRIPTS
+            = render 'pre_js'
+            = javascript_include_tag 'application'
+
+            -############ PAGE CONTENT
+            = yield

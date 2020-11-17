@@ -1,0 +1,9 @@
+- margin = ''
+- notice_str = @notice.to_s + flash[:notice].to_s
+- alert_str = @alert.to_s + flash[:alert].to_s
+- if defined?(classes)
+    - margin = classes
+- unless notice_str.blank?
+    = render 'core/alert', type: 'success', raw: notice_str, margin: margin
+- unless alert_str.blank?
+    = render 'core/alert', type: 'danger', raw: alert_str, margin: margin

@@ -1,0 +1,18 @@
+default:      &default
+    pool:       5
+    adapter:    mysql2
+    encoding:   utf8
+
+development:
+    <<:         *default
+    database:   desafio_backend
+    host:       localhost
+    username:   root
+    password:   somepassword
+
+production:
+    <<:         *default
+    database:   desafio_backend
+    host:       somehost.com
+    username:   root
+    password:   somepassword
