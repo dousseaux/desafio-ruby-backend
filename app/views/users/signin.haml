@@ -1,0 +1,58 @@
+
+
+.row.align-items-center.m-0.p-0
+    .col-12.col-md-12.vh-100.text-center.p-0
+        .signin-wrapper.vh-100.p-3.p-md-4.d-flex.align-items-center.justify-content-center
+            .signin-content.d-inline-block.overflow-hidden.rounded-small.boxed.w-100.py-4.px-2.px-md-4.m-0(style="max-width: 400px; background: rgba(0,0,0,0.8);")
+
+                #session-loading
+                    %div.text-white.text-center
+                        %div.my-3
+                            %i.fa.fa-spinner.fa-pulse.fs-38
+                        .fs-12
+                            carregando ...
+
+                #register-or-signin.d-none
+                    %p.p-2.text-gray-200 Antes de continuar, entre ou cadastre uma nova conta.
+                    .mb-1
+                        #signin-btn.btn.btn-lg.btn-with-ico.btn-primary.btn-rounded.btn-block.px-4
+                            %i.fa.fa-sign-in.icon
+                            entrar
+                    .mt-2
+                        #register-btn.btn.btn-lg.btn-with-ico.btn-secondary.btn-rounded.btn-block.px-4
+                            %i.fa.fa-th-list.fa-offset-1.icon
+                            cadastrar-se
+                    .text-white.fs-12.font-wight-accent.mt-4
+                        %i.fa.fa-lock.fs-14
+                        AMBIENTE SEGURO
+
+                #signin.d-none
+                    = simple_form_for :signin, html: {id: 'signin-form', class: 'form-dark'} do |f|
+                        .text-left
+                            .my-2= f.input :email, placeholder: "user@email.com", required: false, input_html: {'data-validate': 'required & email'}
+                            .my-2= f.input :password, placeholder: "*********", required: false, input_html: {'data-validate': 'required & min:8 & regex:.*\d.*:Deve conter algum número'}
+                        = link_to 'Esqueci minha senha!', '#', class: 'fs-14 d-block text-center text-white mb-2', id: 'forgot-password'
+                        %button.btn.btn-lg.btn-with-ico.btn-primary.btn-rounded.btn-block.px-4.mt-3
+                            %i.fa.fa-sign-in.icon
+                            entrar
+                    .w-100.py-1
+                    .signin-back.btn.btn-lg.btn-with-ico.btn-secondary.btn-rounded.btn-block.px-4
+                        %i.fa.fa-angle-left.fa-offset-1.icon
+                        cancelar
+
+                #register.d-none
+                    = simple_form_for :register, html: {id: 'register-form', class: 'form-dark'} do |f|
+                        .text-left
+                            .my-2= f.input :name, placeholder: "Seu nome", label: 'nome completo', required: false, input_html: {'data-validate': 'required'}
+                            .my-2= f.input :email, placeholder: "user@email.com", required: false, input_html: {'data-validate': 'required & email'}
+                            .my-2= f.input :password, placeholder: "*********", required: false, input_html: {'data-validate': 'required & min:8 & regex:.*\d.*:Deve conter algum número'}
+
+                        %button.btn.btn-lg.btn-with-ico.btn-primary.btn-rounded.btn-block.px-4.mt-3
+                            %i.fa.fa-check.icon
+                            cadastrar
+                    .w-100.py-1
+                    .signin-back.btn.btn-lg.btn-with-ico.btn-secondary.btn-rounded.btn-block.px-4
+                        %i.fa.fa-angle-left.fa-offset-1.icon
+                        cancelar
+
+= javascript_include_tag 'signin'

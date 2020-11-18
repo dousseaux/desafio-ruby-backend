@@ -1,11 +1,14 @@
-//= require duxstrap-bundle-min.js
-//= require duxdash-bundle-min.js
-//= require aws-cognito.js
-//= require dux-cognito.js
+// = require duxstrap-bundle-min.js
+// = require duxdash-bundle-min.js
+// = require aws-cognito.js
+// = require dux-cognito.js
 
 // ****************** AWS COGNITO SESSION ******************
 
 if (typeof cognito_pool_id !== 'undefined') {
+
+    var dev_environment = true;
+
     var cognito = new Cognito(
         cognito_pool_id,
         cognito_client_id,
@@ -18,6 +21,7 @@ if (typeof cognito_pool_id !== 'undefined') {
     $(function() {
         cognito.init();
     });
+
 }
 
 

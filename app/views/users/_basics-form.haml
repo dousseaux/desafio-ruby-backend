@@ -1,0 +1,18 @@
+= simple_form_for @user, url: user_basics_path, method: :post, html: {class: 'dux-validate'} do |f|
+
+    .row.mb-2.gutter-2
+
+        .col-12.col-md-8= f.input :name, label: 'NOME', placeholder: 'Seu Nome', input_html: {'data-validate': 'required'}, autofocus: true, required: false
+        .col-6.col-md-4= f.input :phone, label: 'CELULAR', as: :tel, placeholder: '(00) 0000-0000', input_html: {'data-mask': '(00) 0000-00009', 'data-validate': 'required & min:14:Telefone incompleto'}, required: false
+        .col-6.col-md-4= f.input :cpfcnpj, label: 'CPF / CNPJ', as: :tel, placeholder: '000.000.000-00', required: false
+        .col-6.col-md-4= f.input :rg, label: 'RG', placeholder: '00.000.000-0', as: :tel, input_html: {'data-mask': '00.000.000-0', 'data-validate': 'required & regex:^\d{2}\.\d{3}\.\d{3}-\d{1}$:Formato inválido'}, required: false
+        .col-6.col-md-4= f.input :birthdate, label: 'NASCIMENTO', as: :tel, placeholder: 'DD / MM / AAAA', input_html: {'data-mask': '00 / 00 / 0000', 'data-validate': 'required & regex:^\d{2} \/ \d{2} \/ \d{4}$:Formato inválido'}, required: false
+        - if @user.lawyer
+            .col-6.col-md-4= f.input :oab, label: 'OAB', placeholder: '0000-SP', input_html: {'data-validate': 'required'}, required: false
+            .w-100.m-0.p-0
+        .col-12.col-md-3= f.input :address_postal, label: 'CEP', as: :tel, placeholder: '00000-000', input_html: {value: "#{@user.address_postal}", 'data-mask': '00000-000', 'data-validate': 'required & regex:^\d{5}-\d{3}$:Formato inválido'}, required: false
+        .col-12.col-md-4= f.input :address_city, label: 'CIDADE', readonly: true, input_html: {'data-validate': 'required'}, required: false
+        .col-12.col-md-3= f.input :address_state, label: 'ESTADO', readonly: true, input_html: {'data-validate': 'required'}, required: false
+        .col-12.col-md-2= f.input :address_country, label: 'PAÍS', readonly: true, as: :string, input_html: {'data-validate': 'required'}, required: false
+
+    = f.submit 'SUBMIT', class: 'd-none'

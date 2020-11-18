@@ -1,0 +1,26 @@
+.container.pt-3
+    .row.justify-content-center
+        .col-12
+            .dashbox
+                .dashbox-title
+                    %div
+                        Finalizar cadastro
+                        %div.fs-16.text-muted É necessário completar o cadastro para prosseguir
+
+                .dashbox-body.py-5
+
+                    .row.gutter-2.justify-content-center
+
+                        .col-12.col-md-5
+                            = link_to 'Procuro Advogados', user_register_basics_path, class: 'btn btn-block btn-lg btn-outline-primary'
+
+                        .col-12.col-md-5
+                            = link_to 'Sou Advogado', user_register_basics_path(type: 'lawyer'), class: 'btn btn-block btn-lg btn-outline-primary'
+
+:javascript
+
+    $(function() {
+        $('#form-next').click(function() {
+            $('form').submit();
+        });
+    });

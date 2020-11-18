@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-%html(lang="en")
+%html(lang="pt-br")
     %head
         %meta{:charset => "utf-8"}
         %title= @config[:title].truncate(70)
@@ -23,7 +23,7 @@
         %div.sidebar-mobile
             .sidebar-toggle
             = image_tag @config[:logo_mobile]
-        %nav
+        %nav.sidebar.sidebar-dark.sidebar-squared.sidebar-comfortable
             .sidebar-close
             .sidebar-content
                 = link_to root_path, class: 'sidebar-logo' do

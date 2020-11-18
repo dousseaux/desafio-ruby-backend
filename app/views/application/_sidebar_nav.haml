@@ -2,21 +2,23 @@
 
     // ################### USER
     - nav_item_class = 'nav-item'
-    - if request.path.include?('/profile')
+    - if request.path.include?('/profile') || current_page?(user_signin_path)
         - nav_item_class = nav_item_class + ' active'
     %li(class="#{nav_item_class}")
-        = link_to user_profile_path, class: 'nav-link' do
-            %i.fa.fa-user-circle-o
-            - if @user.blank?
-                = @user.nickname
-            - else
+        - if @user.blank?
+            = link_to user_signin_path, class: 'nav-link' do
+                %i.fa.fa-user-circle-o
                 Sign In
+        - else
+            = link_to user_profile_path, class: 'nav-link' do
+                %i.fa.fa-user-circle-o
+                = @user.nickname
 
     .sidebar-spacer
 
     // ################### HOME
     - nav_item_class = 'nav-item'
-    - if current_page?(root_path) || true
+    - unless request.path.include?('/profile') || current_page?(user_signin_path)
         - nav_item_class = nav_item_class + ' active'
     %li(class="#{nav_item_class}")
         = link_to root_path , class: 'nav-link' do
@@ -31,8 +33,17 @@
             %i.fa.fa-sign-out
             Sign Out
 
-    // ################### COPYRIGHT
+    // ################### AUTHOR
+    %li.nav-item.mt-3
+        = link_to 'https://duxcloud.com.br', class: 'nav-link fs-10 py-1', target: '_blank' do
+            %span.font-weight-light Pedro Dousseau
+
+    // ################### EMAIL
+    %li.nav-item.my-0
+        = link_to 'mailto:pedro@dousseau.com', class: 'nav-link fs-10 py-1', target: '_blank' do
+            %span.font-weight-light pedro@dousseau.com
+
+    // ################### GITHUB
     %li.nav-item
-        = link_to 'https://duxcloud.com.br', class: 'nav-link fs-10', target: '_blank' do
-            %span.font-weight-light Pedro Dousseau -
-            %span.font-weight-light v0.1.0 Beta
+        = link_to 'https://github.com/dousseaux/desafio-ruby-backend', class: 'nav-link fs-10 py-1', target: '_blank' do
+            %span.font-weight-light Desafio Backend Ruby

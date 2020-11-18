@@ -1,0 +1,110 @@
+.container.py-3
+
+    .row.gutter-2
+
+        .col-12
+            %h1.h3
+                %i.fa.fa-user-circle-o.mx-2
+                Meu Perfil
+
+        - if any_alerts
+            .col-12.py-0= render 'alerts'
+
+        .col-12
+            .dashbox
+                .dashbox-body.p-3
+                    = simple_form_for @user, url: user_profile_path, method: :post, html: {class: 'dux-validate'} do |f|
+                        %h2.fs-18.font-weight-accent.p-0.mb-2.mt-0 Alterar Nome
+                        .row.gutter-1.mb-0.justify-content-end.align-items-start
+                            .col-md-9
+                                .mt-md-1= f.input :name, label: 'NOME', placeholder: 'Seu Nome', input_html: {'data-validate': 'required'}, autofocus: true, required: false
+                            .col-12.col-md-3
+                                %button.btn.btn-sm.btn-with-icon.btn-outline-primary.btn-block.mt-0.mt-md-4.px-4.pl-md-6
+                                    %i.fa.fa-check.icon
+                                    SALVAR
+
+        .col-12
+            .dashbox
+                .dashbox-body.p-3
+                    = simple_form_for :email, html: {id: 'email-form'} do |f|
+                        %h2.fs-18.font-weight-accent.p-0.mb-2.mt-0 Alterar E-mail
+                        .row.gutter-1.mb-0.justify-content-end.align-items-start
+                            .col-md-9
+                                .mt-md-1= f.input :current, placeholder: "email@example.com", label: 'E-MAIL', required: false, input_html: {'data-validate': 'required & email', 'value': @user.email}
+                            .col-12.col-md-3
+                                %button.btn.btn-sm.btn-with-icon.btn-outline-primary.btn-block.mt-0.mt-md-4.px-4.pl-md-6
+                                    %i.fa.fa-check.icon
+                                    SALVAR
+        .col-12
+            .dashbox
+                .dashbox-body.p-3
+                    = simple_form_for :password, html: {id: 'password-form'} do |f|
+                        %h2.fs-18.font-weight-accent.p-0.mb-2 Alterar Senha
+                        .row.gutter-1.mb-0.justify-content-end.align-items-start
+                            .col-md-3
+                                .mt-md-1= f.input :current, placeholder: "*********", as: :password, label: 'SENHA ATUAL', required: false, input_html: {'data-validate': 'required & min:8 & regex:.*\d.*:Deve conter algum número'}
+                            .col-md-3
+                                .mt-md-1= f.input :new, placeholder: "*********", as: :password, label: 'NOVA SENHA', required: false, input_html: {'data-validate': 'required & min:8 & regex:.*\d.*:Deve conter algum número'}
+                            .col-md-3
+                                .mt-md-1= f.input :confirm, placeholder: "*********", as: :password, label: 'CONFIRME A SENHA', required: false, input_html: {'data-validate': 'required & min:8 & regex:.*\d.*:Deve conter algum número'}
+                            .col-12.col-md-3
+                                %button.btn.btn-sm.btn-with-icon.btn-outline-primary.btn-block.mt-0.mt-md-4.px-4.pl-md-6
+                                    %i.fa.fa-check.icon
+                                    SALVAR
+
+        .col-12
+            .dashbox
+                .dashbox-body.p-3
+                    %h2.fs-18.font-weight-accent.p-0.mb-2 Desativar Conta
+                    .row.mb-0.gutter-2
+                        .col-12.text-muted.fs-12.py-0 ATENÇÃO: Essa ação não poderá ser desfeita.
+                        .col-12.col-md-4.pb-0
+                            = link_to user_profile_path, id: 'delete-account', class: 'btn btn-sm btn-block btn-with-ico btn-outline-danger px-4 pl-md-6' do
+                                %i.fa.fa-exclamation-triangle.icon
+                                DESATIVAR CONTA
+
+:javascript
+
+    $(function() {
+
+        $('#email-form').submit(function(e) {
+            e.preventDefault();
+            cognito.updateEmail($('#email_current').val(), function() {});
+        });
+
+        $('#password-form').submit(function(e) {
+            e.preventDefault();
+            cognito.updatePassword($('#password_current').val(), $('#password_new').val(), $('#password_confirm').val(), function() {
+                $('#password_current').val('');
+                $('#password_new').val('');
+                $('#password_confirm').val('');
+            });
+        });
+
+        $('#delete-account').click(function(e) {
+            e.preventDefault();
+            bootbox.confirm('Você realmente deseja desativar a conta?', function(confirmation) {
+                if (confirmation) {
+                    deleteJSON(
+                        $(this).attr('href'),
+                        {},
+                        function(data) {
+                            if (data.status) {
+                                cognito.removeAccount(function(status) {
+                                    if(!status) {
+                                        bootbox.alert('Não foi possível desativar a conta.');
+                                    }
+                                });
+                            } else {
+                                bootbox.alert('Não foi possível desativar a conta.');
+                            }
+                        },
+                        function() {
+                            bootbox.alert('Não foi possível desativar a conta.');
+                        }
+                    );
+                }
+            });
+        });
+
+    });

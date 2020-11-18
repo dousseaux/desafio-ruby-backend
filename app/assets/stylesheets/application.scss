@@ -1,2 +1,17 @@
 @import "duxstrap-bundle-min";
 @import "duxdash-bundle-min";
+
+.signin-wrapper {
+    background: url("#{image_path('background.jpg')}") no-repeat !important;
+    background-position: center center !important;
+    background-size: cover !important;
+}
+
+.sidebar .sidebar-content .sidebar-logo {
+    margin-top: 50px !important;
+    margin-bottom: 25px !important;
+
+    img {
+        max-height: 125px !important;
+    }
+}

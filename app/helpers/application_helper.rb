@@ -2,6 +2,11 @@ module ApplicationHelper
 
     include ActionView::Helpers::UrlHelper
 
+    # Check for the presence of any alerts
+    def any_alerts
+        @notice.present? || flash[:notice].present? || @alert.present? || flash[:alert].present?
+    end
+
     # Decode a token from a JWK
     def decode_jwt(token, jwk)
         jwk = JSON::JWK::Set.new(jwk)
@@ -10,7 +15,7 @@ module ApplicationHelper
         rescue
             return false
         end
-        unless Time.at(token[:exp]) > Time.now
+        if Time.at(token[:exp]).utc < Time.now.utc
             return false
         end
         return token
@@ -48,8 +53,10 @@ module ApplicationHelper
             @user = User.create({
                 cognito_id: user_session[:id],
                 name: user_session[:name],
-                email: user_session[:email]
+                email: user_session[:email],
+                enabled: true
             })
+            redirect_to user_dashboard_path
         else
             if @user.email != user_session[:email]
                 @user.update({
@@ -57,21 +64,11 @@ module ApplicationHelper
                 })
             end
         end
-        unless @user.blank?
-            unless @user.enabled
-                unless params[:controller] == 'users' && (
-                    params[:action].include?('register') || params[:action].include?('submit') ||
-                    params[:action] == 'check' || params[:action] == 'signout'
-                )
-                    redirect_to user_register_path
-                end
-            end
-        end
     end
 
     # Request a valid session and user
     def require_session
-        unless (params[:controller] == 'users' && params[:action] == 'signin') || params[:controller] == 'pages'
+        unless params[:controller] == 'users' && params[:action] == 'signin'
             user_session = verify_token
             if user_session.present?
                 verify_user(user_session)
