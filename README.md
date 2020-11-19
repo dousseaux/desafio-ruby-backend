@@ -9,6 +9,8 @@ Este desafio deve ser feito por você em sua casa.
 
 ## Visão Geral
 
+Pedro Dousseau <pedro@dousseau.com>
+
 Tentei ser o mais simples possível tentando ser completo ao abranger todos requisitos do projeto. A aplicação roda em Rails, possuí autenticação OAuth através do AWS Cognito e roda em ambiente de desenvolvimento e teste através do Docker.
 
 Stack:
@@ -22,7 +24,6 @@ Stack:
 
 DUXFront é um framework de frontend que desenvolvi com Bootstrap 4, jQuery e várias bibliotecas Open Source populares. Por questão de simplicidade, coloquei apenas os bundles minificados.
 
-
 ## Configuração e Execução
 
 Clone este repositório e execute os scripts que estão dentro da pasta Docker que já contém os comandos para executar as diversas funções através do Docker configurado. É importante executar os scripts da pasta raíz. Ex.:
@@ -30,20 +31,23 @@ Clone este repositório e execute os scripts que estão dentro da pasta Docker q
 ```bash
 $ bash docker/setup.sh
 ```
+Copie o arquivo 'config/database.yml.default' para 'config/database.yml'. A senha padrão que será configurada no container é a mesma do arquivo.
 
-**buid.sh**: cria a imagem do docker que será utilizada.
+Scripts:
 
-**setup.sh**: sobe e configura um container através da imagem criada.
+**docker/buid.sh**: cria a imagem do docker que será utilizada.
 
-**server.sh**: executa o Puma (webserver) depois que o container já estiver rodando.
+**docker/setup.sh**: sobe e configura um container através da imagem criada.
 
-**test.sh**: roda todos os testes depois que o container já estiver rodando.
+**docker/server.sh**: executa o Puma (webserver) depois que o container já estiver rodando.
 
-**stop.sh**: para um container em execução.
+**docker/test.sh**: roda todos os testes depois que o container já estiver rodando.
 
-**start.sh**: inicia um container que foi parado.
+**docker/stop.sh**: para um container em execução.
 
-**remove.sh**: remove um container depois que foi parado.
+**docker/start.sh**: inicia um container que foi parado.
+
+**docker/remove.sh**: remove um container depois que foi parado.
 
 O servidor irá rodar na port :3000. A aplicação irá exigir login, bastar criar uma conta. Será necessário confirmar o e-mail utilizado através de um código de verificação. **Verifique SPAM, LIXO e OUTRAS CAIXAS** caso não encontre o e-mail com o código de verificação.
 
