@@ -1,19 +1,59 @@
-# Desafio programação - para vaga Back-end
+# Desafio programação - Vaga Back-end
 
 Por favor leiam este documento do começo ao fim, com muita atenção.
 O intuito deste teste é avaliar seus conhecimentos técnicos com o back-end, para ser mais específico em Ruby.
 
 O teste consiste em parsear [este arquivo de texto (CNAB)](https://github.com/mlalbuquerque/desafio-ruby-backend/blob/master/CNAB.txt) e salvar suas informações (transações financeiras) em uma base de dados a critério do candidato.
 
-Este desafio deve ser feito por você em sua casa. 
+Este desafio deve ser feito por você em sua casa.
 
-# Instruções de entrega do desafio
+## Visão Geral
+
+Tentei ser o mais simples possível tentando ser completo ao abranger todos requisitos do projeto. A aplicação roda em Rails, possuí autenticação OAuth através do AWS Cognito e roda em ambiente de desenvolvimento e teste através do Docker.
+
+Stack:
+
+- Ruby 2.6.3
+- Rails 5.2
+- MySQL 5.6 / MariaDB 10.0
+- Autenticação OAuth (AWS Cognito)
+- Docker
+- DUXFront
+
+DUXFront é um framework de frontend que desenvolvi com Bootstrap 4, jQuery e várias bibliotecas Open Source populares. Por questão de simplicidade, coloquei apenas os bundles minificados.
+
+
+## Configuração e Execução
+
+Clone este repositório e execute os scripts que estão dentro da pasta Docker que já contém os comandos para executar as diversas funções através do Docker configurado. É importante executar os scripts da pasta raíz. Ex.:
+
+```bash
+$ bash docker/setup.sh
+```
+
+**buid.sh**: cria a imagem do docker que será utilizada.
+
+**setup.sh**: sobe e configura um container através da imagem criada.
+
+**server.sh**: executa o Puma (webserver) depois que o container já estiver rodando.
+
+**test.sh**: roda todos os testes depois que o container já estiver rodando.
+
+**stop.sh**: para um container em execução.
+
+**start.sh**: inicia um container que foi parado.
+
+**remove.sh**: remove um container depois que foi parado.
+
+O servidor irá rodar na port :3000. A aplicação irá exigir login, bastar criar uma conta. Será necessário confirmar o e-mail utilizado através de um código de verificação. **Verifique SPAM, LIXO e OUTRAS CAIXAS** caso não encontre o e-mail com o código de verificação.
+
+## Instruções de entrega do desafio
 
 1. Primeiro, faça um fork deste projeto para sua conta no Github (crie uma se você não possuir).
 2. Em seguida, implemente o projeto tal qual descrito abaixo, em seu clone local.
 3. Por fim, envie via email um arquivo patch para seu contato na Impulso.
 
-# Descrição do projeto
+## Descrição do projeto
 
 Você recebeu um arquivo CNAB com os dados das movimentações finanaceira de várias lojas.
 Precisamos criar uma maneira para que estes dados sejam importados para um banco de dados.
@@ -33,7 +73,7 @@ Sua tarefa é criar uma interface web que aceite upload do [arquivo CNAB](https:
 1. Lidar com autenticação ou autorização (pontos extras se ela fizer, mais pontos extras se a autenticação for feita via OAuth).
 2. Ser escrita usando algum framework específico (mas não há nada errado em usá-los também, use o que achar melhor).
 
-# Documentação do CNAB
+## Documentação do CNAB
 
 | Descrição do campo  | Inicio | Fim | Tamanho | Comentário
 | ------------- | ------------- | -----| ---- | ------
@@ -41,12 +81,12 @@ Sua tarefa é criar uma interface web que aceite upload do [arquivo CNAB](https:
 | Data  | 2  | 9 | 8 | Data da ocorrência
 | Valor | 10 | 19 | 10 | Valor da movimentação. *Obs.* O valor encontrado no arquivo precisa ser divido por cem(valor / 100.00) para normalizá-lo.
 | CPF | 20 | 30 | 11 | CPF do beneficiário
-| Cartão | 31 | 42 | 12 | Cartão utilizado na transação 
+| Cartão | 31 | 42 | 12 | Cartão utilizado na transação
 | Hora  | 43 | 48 | 6 | Hora da ocorrência atendendo ao fuso de UTC-3
 | Dono da loja | 49 | 62 | 14 | Nome do representante da loja
 | Nome loja | 63 | 81 | 19 | Nome da loja
 
-# Documentação sobre os tipos das transações
+## Documentação sobre os tipos das transações
 
 | Tipo | Descrição | Natureza | Sinal |
 | ---- | -------- | --------- | ----- |
@@ -60,7 +100,7 @@ Sua tarefa é criar uma interface web que aceite upload do [arquivo CNAB](https:
 | 8 | Recebimento DOC | Entrada | + |
 | 9 | Aluguel | Saída | - |
 
-# Avaliação
+## Avaliação
 
 Seu projeto será avaliado de acordo com os seguintes critérios.
 
