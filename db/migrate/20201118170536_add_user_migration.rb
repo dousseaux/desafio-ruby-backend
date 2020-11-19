@@ -1,6 +1,5 @@
 class AddUserMigration < ActiveRecord::Migration[5.2]
-
-    def change;
+    def change
         create_table 'users', force: :cascade, options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8', id: :integer do |t|
             t.string    'cognito_id'
             t.string    'name'
@@ -12,5 +11,4 @@ class AddUserMigration < ActiveRecord::Migration[5.2]
             t.datetime  'updated_at',                                   null: false
         end
     end
-
 end
