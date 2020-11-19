@@ -12,4 +12,7 @@ Rails.application.routes.draw do
     post        '/profile',                     to: 'users#profile_update'
     delete      '/profile',                     to: 'users#delete'
 
+    # Transactions
+    resource :transactions, only: [:create]
+
 end

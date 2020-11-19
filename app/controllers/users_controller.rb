@@ -3,6 +3,7 @@
 class UsersController < ApplicationController
 
     def dashboard
+        @transactions = Transaction.joins(:store).joins(:trantype).order('stores.name ASC, transaction_dt ASC')
         @config[:title] = "Dashboard - #{@config[:name]}"
     end
 

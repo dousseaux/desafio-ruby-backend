@@ -4,3 +4,67 @@
 
         .col-12
             .h4.m-0= "Bem vindo, #{@user.nickname}!"
+
+        - if any_alerts
+            .col-12.py-0= render 'alerts'
+
+        .col-12
+            .dashbox
+                .dashbox-title
+                    Minhas Transações
+                    .btn.btn-sm.btn-primary.btn-icon.btn-rounded(data-target="#upload-file-modal" data-toggle="modal")
+                        %i.fa.fa-upload.icon
+                .dashbox-body.p-0
+                    %table.table.table-sm.table-break-word.mb-0
+                        %tbody
+                            - @transactions.each do |tran|
+                                %tr
+                                    %td.px-3
+                                        .row.my-0.gutter-1
+                                            .col-md-2.text-primary.font-weight-accent.fs-18
+                                                = tran.trantype.signal
+                                                = price_str(tran.amount)
+                                            .col-md-5.text-primary.font-weight-accent.fs-18
+                                                = tran.store.name
+                                            .col-md-5.text-primary.font-weight-accent.fs-18
+                                                = tran.store.owner
+                                            .col-md-2.fs-12.text-gray-500
+                                                %span.font-weight-bold= tran.transaction_dt.strftime('%Y/%m/%d %H:%M:%S')
+                                            .col-md-3.fs-12.text-gray-500
+                                                %span.font-weight-bold= tran.trantype.description.upcase
+                                            .col-md-3.fs-12.text-gray-500
+                                                CPF:
+                                                %span.font-weight-bold= tran.cpf
+                                            .col-md-4.fs-12.text-gray-500
+                                                CARTÃO:
+                                                %span.font-weight-bold= tran.card
+                            %tr
+                                %td.px-3
+                                    .text-center
+                                        - if @transactions.blank?
+                                            %p Nenhum resultado encontrado.
+                                        .btn.btn-xs.btn-primary.btn-with-icon.font-weight-bold(data-target="#upload-file-modal" data-toggle="modal")
+                                            %i.fa.fa-upload.icon
+                                            UPLOAD
+
+
+.modal.fade#upload-file-modal(role="dialog")
+    .modal-dialog.modal-dialog-centered
+        .modal-content.bg-gradient-gray-100
+            .modal-header.pb-0.px-3
+                %h5.font-weight-accent.mb-0 UPLOAD DE ARQUIVO
+                .close.fs-24.text-gray-600(data-dismiss="modal") &times;
+            .modal-body.pt-2.px-3
+                = simple_form_for :data_upload, url: transactions_path, html: {class: 'dux-validate form-with-borders'} do |f|
+                    .row.gutter-1
+                        .d-none= f.input :file, as: :file
+                        .col-12= f.input :local_path, placeholder: 'Nenhum arquivo selecionado', readonly: true, label: 'ARQUIVO', input_html: {class: 'cursor-pointer', value: '', 'data-validate': 'required', 'data-file-input': '#data_upload_file', 'data-file-name': '#data_upload_local_path'}, required: false
+                        .w-100
+                        .col-6
+                            .btn.btn-sm.btn-block.btn-gray-200.btn-with-icon.text-uppercase.pr-md-5.pl-md-6(data-dismiss="modal")
+                                %i.fa.fa-times.icon
+                                CANCELAR
+                        .col-6
+                            %button.btn.btn-sm.btn-block.btn-primary.btn-with-icon.text-uppercase.pr-md-5.pl-md-6
+                                %i.fa.fa-check.icon
+                                UPLOAD
