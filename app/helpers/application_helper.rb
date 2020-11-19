@@ -3,15 +3,9 @@ module ApplicationHelper
     include ActionView::Helpers::UrlHelper
 
     # CONVERT PRICE DECIMAL INTO STRING
-    def price_str(price, format='!.? BRL', rnd=2)
+    def price_str(price)
         if price.present?
-            cents = ((price % 1).round(rnd) * 10 ** rnd).to_i
-            integ = price.to_i
-            if cents > 0
-                return format.gsub('!', integ.to_s).gsub('?', cents.to_s)
-            else
-                return format.gsub('!', integ.to_s).gsub('?', '00')
-            end
+            return "#{'%.2f BRL' % price}"
         else
             return 'N / A'
         end

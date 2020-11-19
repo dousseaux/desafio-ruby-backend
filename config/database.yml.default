@@ -13,11 +13,11 @@ development:
 production:
     <<:         *default
     database:   desafio_backend
-    host:       somehost.com
+    host:       localhost
     username:   root
     password:   railsdev
 
-development:
+test:
     <<:         *default
     database:   desafio_backend_test
     host:       localhost

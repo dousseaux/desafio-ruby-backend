@@ -17,6 +17,10 @@
                 .dashbox-body.p-0
                     %table.table.table-sm.table-break-word.mb-0
                         %tbody
+                            %tr
+                                %td.px-3.text-center
+                                    %span.font-weight-accent.fs-18 TOTAL:
+                                    %span.font-weight-bold.text-secondary.fs-20= price_str(@transactions_total)
                             - @transactions.each do |tran|
                                 %tr
                                     %td.px-3
