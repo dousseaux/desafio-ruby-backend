@@ -35,11 +35,11 @@ Copie o arquivo 'config/database.yml.default' para 'config/database.yml'. A senh
 
 Scripts:
 
-**docker/buid.sh**: cria a imagem do docker que será utilizada.
+**docker/buid.sh**: cria a imagem do docker que será utilizada (pode demorar até 10 min da primeira vez).
 
-**docker/setup.sh**: sobe e configura um container através da imagem criada.
+**docker/setup.sh**: sobe e configura um container através da imagem criada (pode demorar até 10 min da primeira vez).
 
-**docker/server.sh**: executa o Puma (webserver) depois que o container já estiver rodando.
+**docker/server.sh**: executa o Puma (webserver) depois que o container já estiver rodando, caso dê algum erro, aguarde e tente novamente pois ainda o setup ainda não foi completo.
 
 **docker/test.sh**: roda todos os testes depois que o container já estiver rodando.
 
