@@ -12,7 +12,7 @@ gem 'turbolinks', '~> 5.2.1'
 gem 'figaro', '~> 1.1.1'
 gem 'bcrypt', '~> 3.1.13'
 gem 'puma', '~> 4.3.2'
-
+gem 'tzinfo-data', '~> 1.2020', '>= 1.2020.4'
 
 group :development do
     gem 'listen', '>= 3.0.5', '< 3.2'

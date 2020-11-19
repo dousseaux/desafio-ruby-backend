@@ -8,18 +8,18 @@ development:
     database:   desafio_backend
     host:       localhost
     username:   root
-    password:   somepassword
+    password:   railsdev
 
 production:
     <<:         *default
     database:   desafio_backend
     host:       somehost.com
     username:   root
-    password:   somepassword
+    password:   railsdev
 
-    development:
-        <<:         *default
-        database:   desafio_backend_test
-        host:       localhost
-        username:   root
-        password:   somepassword
+development:
+    <<:         *default
+    database:   desafio_backend_test
+    host:       localhost
+    username:   root
+    password:   railsdev
